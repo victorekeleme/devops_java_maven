@@ -1,38 +1,33 @@
-def gv
+pipeline{
+    agents any
+    parameters {
+        choice(name: 'VERSION', choices: ['1.0','1.1','1.2'], description: 'Choose the version you want')
+    }
 
-pipeline {
-    agent any
-    stages {
-        stage("init") {
-            steps {
-                script {
-                    gv = load "script.groovy"
-                }
+    stages{
+        stage("init"){
+            steps{
+                echo "Initializing"
             }
         }
-        stage("build jar") {
-            steps {
-                script {
-                    echo "building jar"
-                    //gv.buildJar()
-                }
+
+        stage("build"){
+            steps{
+                echo "Building the application"
             }
         }
-        stage("build image") {
-            steps {
-                script {
-                    echo "building image"
-                    //gv.buildImage()
-                }
+        stage("test"){
+            steps{
+                echo "Testing the application"
             }
         }
-        stage("deploy") {
-            steps {
-                script {
-                    echo "deploying"
-                    //gv.deployApp()
-                }
+        stage("deploy"){
+            steps{
+                echo "Deploying the application"
+                echo "deploying version: ${params.VERSION}"
             }
         }
-    }   
+    }
+
 }
+ 
