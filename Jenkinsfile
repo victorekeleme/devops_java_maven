@@ -3,7 +3,10 @@ def gv
 pipeline{
     agent any
     parameters {
-        choice(name: 'VERSION', choices: ['1.0','1.1','1.2'], description: 'Choose the version you want')
+        choice(name: 'VERSION', choices: ['1.0','1.1','2.0','2.1'], description: 'Choose the version you want')
+    }
+    tools {
+        maven 'Maven-3.8.6'
     }
 
     stages{
@@ -15,18 +18,18 @@ pipeline{
             }
         }
 
-        stage("build"){
+        stage("build jar"){
             steps{
                 script{
-                    gv.buildApp()
+                    gv.buildAppJar()
                 }
                 
             }
         }
-        stage("test"){
+        stage("build image"){
             steps {
                 script{
-                    gv.testApp()
+                    gv.buildAppImage()
                 }
             }
         }
