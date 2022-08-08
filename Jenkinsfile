@@ -33,7 +33,8 @@ pipeline{
             } 
             steps{
                 script{
-                    gv.buildAppJar()
+                    echo "Building App jar"
+                    //gv.buildAppJar()
                 }
                 
             }
@@ -41,7 +42,8 @@ pipeline{
         stage("build image"){
             steps {
                 script{
-                    gv.buildAppImage()
+                    echo "Building app image"
+                    //gv.buildAppImage()
                 }
             }
         }
