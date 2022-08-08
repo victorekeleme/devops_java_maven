@@ -32,16 +32,7 @@ pipeline{
             } 
             steps{
                 script{
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    echo "Building App jar"
-                    //gv.buildAppJar()
-=======
                     buildjar()
->>>>>>> 382ef27 (jenkinsfile and script updated)
-=======
-                    buildjar()
->>>>>>> 49e0a3d (updated scripts)
                 }
                 
             }
@@ -54,7 +45,6 @@ pipeline{
             } 
             steps {
                 script{
-
                     buildimage()
                 }
             }
