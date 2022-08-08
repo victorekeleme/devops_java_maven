@@ -1,3 +1,5 @@
+@Library('jenkins-shared-library')
+
 def gv
 
 pipeline{
@@ -28,38 +30,34 @@ pipeline{
         stage("build jar"){
             when {
                 expression {
-                    BRANCH_NAME == "main"
+                    BRANCH_NAME == "jenkins-job"
                 }
             } 
             steps{
                 script{
                     echo "Building application Jar"
-                    //gv.buildAppJar()
+                    buildjar()
                 }
                 
             }
         }
         stage("build image"){
+            when {
+                expression {
+                    BRANCH_NAME == "jenkins-job"
+                }
+            } 
             steps {
                 script{
                     echo "Building application Image"
-                    //gv.buildAppImage()
+                    buildimage()
                 }
             }
         }
-        stage("deploy"){
-            input{
-                message "Select the environment to deploy to"
-                ok "Done"
-                parameters {
-                    choice(name: 'ENV', choices: ['dev','staging','prod'], description:'')
-                }
-            }
-            
+        stage("deploy"){            
             steps{
                 script{
-                    //gv.deployApp()
-                    echo "Deploying to ${ENV}"
+                    gv.deployApp()
                 }
             }
         }
