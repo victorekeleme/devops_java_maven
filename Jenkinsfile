@@ -36,7 +36,7 @@ pipeline{
             steps{
                 script{
                     echo "Building application Jar"
-                    buildjar()
+                    buildJar()
                 }
                 
             }
@@ -50,7 +50,7 @@ pipeline{
             steps {
                 script{
                     echo "Building application Image"
-                    buildimage()
+                    buildImage()
                 }
             }
         }
