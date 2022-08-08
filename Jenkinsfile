@@ -1,10 +1,9 @@
+@Library('jenkins-shared-library')
+
 def gv
 
 pipeline{
     agent any
-    parameters {
-        choice(name: 'VERSION', choices: ['1.0','1.1','2.0','2.1'], description: 'Choose the version you want')
-    }
     tools {
         maven 'Maven-3.8.6'
     }
@@ -28,38 +27,47 @@ pipeline{
         stage("build jar"){
             when {
                 expression {
-                    BRANCH_NAME == "main"
+                    BRANCH_NAME == "jenkins-job"
                 }
             } 
             steps{
                 script{
+<<<<<<< HEAD
                     echo "Building App jar"
                     //gv.buildAppJar()
+=======
+                    buildjar()
+>>>>>>> 382ef27 (jenkinsfile and script updated)
                 }
                 
             }
         }
         stage("build image"){
+            when {
+                expression {
+                    BRANCH_NAME == "jenkins-job"
+                }
+            } 
             steps {
                 script{
+<<<<<<< HEAD
                     echo "Building app image"
                     //gv.buildAppImage()
+=======
+                    buildimage()
+>>>>>>> 382ef27 (jenkinsfile and script updated)
                 }
             }
         }
         stage("deploy"){
-            input{
-                message "Select the environment to deploy to"
-                ok "Done"
-                parameters {
-                    choice(name: 'ENV', choices: ['dev','staging','prod'], description:'')
-                }
-            }
-            
             steps{
                 script{ 
+<<<<<<< HEAD
                     //gv.deployApp()
                     echo "Deploying to ${ENV}"
+=======
+                    gv.deployApp()
+>>>>>>> 382ef27 (jenkinsfile and script updated)
                 }
             }
         }
