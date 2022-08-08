@@ -1,38 +1,66 @@
 def gv
 
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage("init") {
-            steps {
+    parameters {
+        choice(name: 'VERSION', choices: ['1.0','1.1','2.0','2.1'], description: 'Choose the version you want')
+    }
+    tools {
+        maven 'Maven-3.8.6'
+    }
+
+    stages{
+        stage("init"){
+            steps{
                 script {
                     gv = load "script.groovy"
                 }
             }
         }
-        stage("build jar") {
-            steps {
+        stage("test"){
+            steps{
                 script {
-                    echo "building jar"
-                    //gv.buildJar()
+                    gv.TestApp()
                 }
             }
         }
-        stage("build image") {
+
+        stage("build jar"){
+            when {
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            } 
+            steps{
+                script{
+                    //gv.buildAppJar()
+                }
+                
+            }
+        }
+        stage("build image"){
             steps {
-                script {
-                    echo "building image"
-                    //gv.buildImage()
+                script{
+                    //gv.buildAppImage()
                 }
             }
         }
-        stage("deploy") {
-            steps {
-                script {
-                    echo "deploying"
-                    //gv.deployApp()
+        stage("deploy"){
+            input{
+                message "Select the environment to deploy to"
+                ok "Done"
+                parameters {
+                    choice(name: 'ENV', choices: ['dev','staging','prod'], description:'')
+                }
+            }
+            
+            steps{
+                script{ 
+                    gv.deployApp()
+                    echo "Deploying to ${ENV}"
                 }
             }
         }
-    }   
+    }
+
 }

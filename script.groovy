@@ -1,19 +1,24 @@
-def buildJar() {
-    echo "building the application..."
-    sh 'mvn package'
-} 
+def TestApp(){
+    echo "Testing the application on $BRANCH_NAME"
+    sh "mvn test"
+}
 
-def buildImage() {
-    echo "building the docker image..."
-    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t nanajanashia/demo-app:jma-2.0 .'
+def buildAppJar() {
+    echo "Building the application jar"
+    sh "mvn package"
+}
+def buildAppImage() {
+    echo "Building the application docker image"
+    withCredentials([usernamePassword(credentialsId: 'Docker-Repo-Credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh "docker build -t vistein12/java-maven-app:${VERSION} ."
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh 'docker push nanajanashia/demo-app:jma-2.0'
+        sh "docker push vistein12/java-maven-app:${VERSION}"
     }
-} 
-
+}
 def deployApp() {
-    echo 'deploying the application...'
-} 
+    echo "Deploying the application"
+    echo "Application Version ${VERSION} deployed"
+    
+}
 
 return this
