@@ -33,11 +33,15 @@ pipeline{
             steps{
                 script{
 <<<<<<< HEAD
+<<<<<<< HEAD
                     echo "Building App jar"
                     //gv.buildAppJar()
 =======
                     buildjar()
 >>>>>>> 382ef27 (jenkinsfile and script updated)
+=======
+                    buildjar()
+>>>>>>> 49e0a3d (updated scripts)
                 }
                 
             }
@@ -50,24 +54,15 @@ pipeline{
             } 
             steps {
                 script{
-<<<<<<< HEAD
-                    echo "Building app image"
-                    //gv.buildAppImage()
-=======
+
                     buildimage()
->>>>>>> 382ef27 (jenkinsfile and script updated)
                 }
             }
         }
         stage("deploy"){
             steps{
                 script{ 
-<<<<<<< HEAD
-                    //gv.deployApp()
-                    echo "Deploying to ${ENV}"
-=======
                     gv.deployApp()
->>>>>>> 382ef27 (jenkinsfile and script updated)
                 }
             }
         }
