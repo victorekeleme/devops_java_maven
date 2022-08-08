@@ -1,7 +1,7 @@
-// def TestApp(){
-//     echo "Testing the application on $BRANCH_NAME"
-//     sh "mvn test"
-// }
+def TestApp(){
+    echo "Testing the application on $BRANCH_NAME"
+    sh "mvn test"
+}
 
 // def buildAppJar() {
 //     echo "Building the application jar"
@@ -17,8 +17,6 @@
 // }
 def deployApp() {
     echo "Deploying the application"
-    echo "Application Version ${VERSION} deployed"
-    
 }
 
 return this
