@@ -1,3 +1,8 @@
+def TestApp(){
+    echo "Testing the application on $BRANCH_NAME"
+    sh "mvn test"
+}
+
 def buildAppJar() {
     echo "Building the application jar"
     sh "mvn package"

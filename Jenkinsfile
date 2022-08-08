@@ -17,8 +17,20 @@ pipeline{
                 }
             }
         }
+        stage("test"){
+            steps{
+                script {
+                    gv.TestApp()
+                }
+            }
+        }
 
         stage("build jar"){
+            when {
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            } 
             steps{
                 script{
                     gv.buildAppJar()
