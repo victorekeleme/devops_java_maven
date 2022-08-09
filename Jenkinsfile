@@ -34,7 +34,6 @@ pipeline{
                 script{
                     buildJar()
                 }
-                
             }
         }
         stage("build image"){
@@ -45,8 +44,9 @@ pipeline{
             } 
             steps {
                 script{
-                    buildImage()
+                    buildImage 'vistein12/java-maven-app:1.3'
                 }
+            }
             }
         }
         stage("deploy"){
