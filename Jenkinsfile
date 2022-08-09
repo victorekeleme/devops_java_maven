@@ -44,7 +44,7 @@ pipeline{
             } 
             steps {
                 script{
-                    buildImage 'vistein12/java-maven-app:1.3'
+                    buildImage 'vistein12/java-maven-app:1.4'
                 }
             }
         }
