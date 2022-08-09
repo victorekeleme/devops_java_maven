@@ -47,9 +47,8 @@ pipeline{
                     buildImage 'vistein12/java-maven-app:1.3'
                 }
             }
-            }
         }
-        stage("deploy"){
+        stage("deploy") {
             steps{
                 script{ 
                     gv.deployApp()
