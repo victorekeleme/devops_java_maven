@@ -15,8 +15,10 @@ def TestApp(){
 //         sh "docker push vistein12/java-maven-app:${VERSION}"
 //     }
 // }
+
 def deployApp() {
     echo "Deploying the application"
+    
 }
 
 return this

@@ -44,7 +44,9 @@ pipeline{
             } 
             steps {
                 script{
-                    buildImage 'vistein12/java-maven-app:1.4'
+                    buildImage 'vistein12/java-maven-app:1.5'
+                    dockerLogin()
+                    dockerPush 'vistein12/java-maven-app:1.5'
                 }
             }
         }
