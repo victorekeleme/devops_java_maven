@@ -1,5 +1,5 @@
 def TestApp(){
-    echo "Testing the application"
+    echo "Testing the java application"
     sh "mvn test"
 }
 
