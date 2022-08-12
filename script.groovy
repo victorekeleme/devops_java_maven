@@ -1,5 +1,5 @@
 def TestApp(){
-    echo "Testing the application on $BRANCH_NAME"
+    echo "Testing the application"
     sh "mvn test"
 }
 

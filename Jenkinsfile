@@ -4,9 +4,7 @@ def gv
 
 pipeline{
     agent any
-    parameters {
-        choice(name: 'VERSION', choices: ['1.0','1.1','2.0','2.1'], description: 'Choose the version you want')
-    }
+    
     tools {
         maven 'Maven-3.8.6'
     }
@@ -28,11 +26,6 @@ pipeline{
         }
 
         stage("build jar"){
-            when {
-                expression {
-                    BRANCH_NAME == "main"
-                }
-            } 
             steps{
                 script{
                     echo "Building application Jar"
@@ -42,11 +35,6 @@ pipeline{
             }
         }
         stage("build image"){
-            when {
-                expression {
-                    BRANCH_NAME == "main"
-                }
-            } 
             steps {
                 script{
                     echo "Building application Image"
