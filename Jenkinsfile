@@ -3,7 +3,7 @@
 def gv
 
 pipeline{
-    agent none
+    agent any
     parameters {
         choice(name: 'VERSION', choices: ['1.0','1.1','2.0','2.1'], description: 'Choose the version you want')
     }
