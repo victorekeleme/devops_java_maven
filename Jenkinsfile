@@ -4,7 +4,7 @@ def gv
 
 pipeline{
     agent any
-    
+
     tools {
         maven 'Maven-3.8.6'
     }
@@ -38,7 +38,7 @@ pipeline{
             steps {
                 script{
                     echo "Building application Image"
-                    buildImage()
+                    buildImage 'vistein12/java-maven-app:2.5'
                 }
             }
         }
