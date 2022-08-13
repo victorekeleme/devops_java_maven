@@ -41,7 +41,7 @@ pipeline{
             steps{
                 script{
                     echo "Building application Jar"
-                    buildJar()
+                    sh 'mvn clean package'
                 }
             }
         }
