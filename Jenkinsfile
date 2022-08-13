@@ -17,7 +17,7 @@ pipeline{
                 }
             }
         }
-        stage("Version increment"){
+        stage("version increment"){
             steps{
                 script{
                     sh "mvn build-helper:parse-version versions:set \
