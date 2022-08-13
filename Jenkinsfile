@@ -1,5 +1,3 @@
-@Library('jenkins-shared-library')
-
 def gv
 
 pipeline{
@@ -17,6 +15,18 @@ pipeline{
                 }
             }
         }
+        stage("Version increment"){
+            steps{
+                script{
+                    sh "mvn build-helper:parse-version versions:set \
+                        -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit"
+                    def matchVersion = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = matchVersion[0][1]
+                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                    
+                }
+            }
+        }
         stage("test"){
             steps{
                 script {
@@ -31,14 +41,13 @@ pipeline{
                     echo "Building application Jar"
                     buildJar()
                 }
-                
             }
         }
         stage("build image"){
             steps {
                 script{
                     echo "Building application Image"
-                    buildImage 'vistein12/java-maven-app:2.5'
+                    buildImage "vistein12/java-maven-app:$IMAGE_NAME"
                 }
             }
         }
