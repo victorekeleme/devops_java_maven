@@ -1,3 +1,5 @@
+@Library('jenkins-shared-library')
+
 def gv
 
 pipeline{
@@ -47,7 +49,7 @@ pipeline{
             steps {
                 script{
                     echo "Building application Image"
-                    buildImage "vistein12/java-maven-app:$IMAGE_NAME"
+                    buildImage "vistein12/java-maven-app:${IMAGE_NAME}"
                 }
             }
         }
