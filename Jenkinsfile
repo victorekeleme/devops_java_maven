@@ -50,7 +50,7 @@ pipeline{
                 script{
                     echo "Building application Image"
                     buildImage "vistein12/java-maven-app:${IMAGE_NAME}"
-                    dokcerLogin()
+                    dockerLogin()
                     dockerPush "vistein12/java-maven-app:${IMAGE_NAME}"
                 }
             }
