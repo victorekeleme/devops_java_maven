@@ -1,3 +1,4 @@
+def gv
 
 pipeline{
     agent any
@@ -9,13 +10,14 @@ pipeline{
             steps{
                 script{
                     echo "Initializing"
+                    gv = load "script.groovy"
                 }
             }
         }
         stage("test"){
             steps{
                 script{
-                    echo "Testing"
+                    gv.TestApp()
 
                 }
             }
@@ -23,7 +25,7 @@ pipeline{
         stage("build jar"){
             steps{
                 script{
-                    echo "Building Jar"
+                    gv.buildJar()
 
                 }
             }
@@ -31,7 +33,7 @@ pipeline{
         stage("build image"){
             steps{
                 script{
-                    echo "Building Image"                    
+                    gv.buildImage "vistein12/java-maven-app:1.0"                 
                 }
             }
         }
