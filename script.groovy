@@ -12,7 +12,7 @@ def buildImage(String IMAGE_NAME){
     echo "Building Docker Image"
     sh "docker build -t $IMAGE_NAME ."
 
-    withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable='PASS', usernameVariable='USER')]){
+    withCredentials([usernamePassword(credentialsId:'docker-credentials', passwordVariable:'PASS', usernameVariable:'USER')]){
         sh "echo $PASS | docker login -u $USER --password-stdin"
     }
     sh "docker push $IMAGE_NAME"
