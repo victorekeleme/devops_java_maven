@@ -37,5 +37,13 @@ pipeline{
                 }
             }
         }
+
+        stage("push to AWS"){
+            steps{
+                script{
+                    gv.pushAWS "vistein12/java-maven-app:1.0"                 
+                }
+            }
+        }
     }
 }
