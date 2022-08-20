@@ -4,8 +4,7 @@ pipeline{
     agent any
     tools {
         maven "Maven"
-        jdk "my-jdk"
-    }
+        }
     stages{
         stage("init"){
             steps{
