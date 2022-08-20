@@ -21,15 +21,11 @@ def buildImage(String IMAGE_NAME){
 
 def pushAWS(String IMAGE_NAME){
     echo "Pushing Docker Image to AWS"
-
-    sh "aws configure"
-    withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
-        sh "aws configure"
-        sh "AKIAXUFSVLVPPRSEDEGO"
-    
-    }
-
-
+    docker.withRegistry(
+        'http://524360703326.dkr.ecr.us-east-2.amazonaws.com',
+        'ecr:us-east-2:aws-credentials')
+        sh "docker tag $IMAGE_NAME 524360703326.dkr.ecr.us-east-2.amazonaws.com/$IMAGE_NAME"
+        sh "docker push 524360703326.dkr.ecr.us-east-2.amazonaws.com/$IMAGE_NAME"
     
     // sh "aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 524360703326.dkr.ecr.us-east-2.amazonaws.com"
     // sh "docker tag $IMAGE_NAME 524360703326.dkr.ecr.us-east-2.amazonaws.com/$IMAGE_NAME"
