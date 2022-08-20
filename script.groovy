@@ -25,6 +25,8 @@ def pushAWS(String IMAGE_NAME){
     sh "aws configure"
     withAWS(credentials: 'aws-credentials', region: 'us-east-2') {
         sh "aws configure"
+        sh "AKIAXUFSVLVPPRSEDEGO"
+    
     }
 
 
