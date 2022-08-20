@@ -14,29 +14,29 @@ pipeline{
                 }
             }
         }
-        stage("test"){
-            steps{
-                script{
-                    gv.TestApp()
+        // stage("test"){
+        //     steps{
+        //         script{
+        //             gv.TestApp()
 
-                }
-            }
-        }
-        stage("build jar"){
-            steps{
-                script{
-                    gv.buildJar()
+        //         }
+        //     }
+        // }
+        // stage("build jar"){
+        //     steps{
+        //         script{
+        //             gv.buildJar()
 
-                }
-            }
-        }
-        stage("build image"){
-            steps{
-                script{
-                    gv.buildImage "vistein12/java-maven-app:1.0"                 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
+        // stage("build image"){
+        //     steps{
+        //         script{
+        //             gv.buildImage "vistein12/java-maven-app:1.0"                 
+        //         }
+        //     }
+        // }
 
         stage("push to AWS"){
             steps{
