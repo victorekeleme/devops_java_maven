@@ -5,7 +5,7 @@ def TestApp(){
 
 def buildJar(){
     echo "Building Jar"
-    sh "mvn package"
+    sh "mvn clean package"
 }
 
 def buildImage(String IMAGE_NAME){

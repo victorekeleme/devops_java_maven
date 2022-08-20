@@ -30,28 +30,28 @@ pipeline{
                 }
             }
         }
-        stage("build image"){
-            steps{
-                script{
-                    gv.buildImage "java-maven-app:2.0"                 
-                }
-            }
-        }
+        // stage("build image"){
+        //     steps{
+        //         script{
+        //             gv.buildImage "java-maven-app:2.0"                 
+        //         }
+        //     }
+        // }
 
-        stage("push to AWS"){
-            steps{
-                script{
-                    gv.pushAWS "java-maven-app:2.0"                 
-                }
-            }
-        }
+        // stage("push to AWS"){
+        //     steps{
+        //         script{
+        //             gv.pushAWS "java-maven-app:2.0"                 
+        //         }
+        //     }
+        // }
 
-        stage("push to Nexus"){
-            steps{
-                script{
-                    gv.pushNexus "java-maven-app:2.0"                 
-                }
-            }
-        }
+        // stage("push to Nexus"){
+        //     steps{
+        //         script{
+        //             gv.pushNexus "java-maven-app:2.0"                 
+        //         }
+        //     }
+        // }
     }
 }
