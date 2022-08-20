@@ -34,8 +34,12 @@ def pushAWS(String IMAGE_NAME){
 
 def pushNexus(String IMAGE_NAME){
     sh "echo Pushin to Nexus"
-    sh "docker tag $IMAGE_NAME 159.203.37.16:8083/$IMAGE_NAME"
+    withCredentials([usernamePassword(credentialsId: 'nexus-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+    sh "docker build -t $IMAGE_NAME"
+    sh "echo $PASS | docker login -u $USER --password-stdin 159.203.37.16:8083"
     sh "docker push 159.203.37.16:8083/$IMAGE_NAME"
+    }
+    
 
 }
 

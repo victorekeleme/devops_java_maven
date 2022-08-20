@@ -49,7 +49,7 @@ pipeline{
         stage("push to Nexus"){
             steps{
                 script{
-                    gv.pushNexus "java-maven-app:1.0"                 
+                    gv.pushNexus "java-maven-app:1.1"                 
                 }
             }
         }
