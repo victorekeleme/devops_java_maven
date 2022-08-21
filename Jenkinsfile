@@ -13,7 +13,7 @@ pipeline{
             steps{
                 script{
                     echo "Initializing"
-                    gv = load "script.groovy"
+                    // gv = load "script.groovy"
                 }
             }
         }
@@ -29,28 +29,28 @@ pipeline{
                 }
             }
         }        
-        stage("test"){
-            steps{
-                script{
-                    gv.TestApp()
-                }
-            }
-        }
-        stage("build jar"){
-            steps{
-                script{
-                    buildJar()
+        // stage("test"){
+        //     steps{
+        //         script{
+        //             gv.TestApp()
+        //         }
+        //     }
+        // }
+        // stage("build jar"){
+        //     steps{
+        //         script{
+        //             buildJar()
 
-                }
-            }
-        }
-        stage("build docker image/push"){
-            steps{
-                script{
-                    buildImage "java-maven-app:${VERSION}"                 
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
+        // stage("build docker image/push"){
+        //     steps{
+        //         script{
+        //             buildImage "java-maven-app:${VERSION}"                 
+        //         }
+        //     }
+        // }
 
         stage("push to AWS"){
             steps{
@@ -62,30 +62,30 @@ pipeline{
             }
         }
 
-        stage("push to Nexus"){
-            steps{
-                script{
-                    pushNexus "java-maven-app:${VERSION}"                 
-                }
-            }
-        }
+        // stage("push to Nexus"){
+        //     steps{
+        //         script{
+        //             pushNexus "java-maven-app:${VERSION}"                 
+        //         }
+        //     }
+        // }
 
-        stage("commit version"){
-            steps{
-                script{
-                    sshagent(credentials: ['github-ssh-credentials']) {
-                        sh "git branch"
-                        sh "git status"
+        // stage("commit version"){
+        //     steps{
+        //         script{
+        //             sshagent(credentials: ['github-ssh-credentials']) {
+        //                 sh "git branch"
+        //                 sh "git status"
                         
-                        sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
-                        sh "git add ."
-                        sh 'git commit -m "ci: version bump"'
-                        sh "git push origin HEAD:jenkins/maven"
-                    }
+        //                 sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
+        //                 sh "git add ."
+        //                 sh 'git commit -m "ci: version bump"'
+        //                 sh "git push origin HEAD:jenkins/maven"
+        //             }
                                    
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
         
     }
 }
