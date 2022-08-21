@@ -50,9 +50,9 @@ pipeline {
         stage("build docker image/push"){
             steps {
                 script {
-                    loginDocker()
-                    buildDocker "vistein12/java-maven-app:${IMAGE_NAME}"
-                    pushDocker "vistein12/java-maven-app:${IMAGE_NAME}"
+                    dockerLogin()
+                    dockerBuildImage "vistein12/java-maven-app:${IMAGE_NAME}"
+                    dockerPushImage "vistein12/java-maven-app:${IMAGE_NAME}"
                 }
             }
         }
