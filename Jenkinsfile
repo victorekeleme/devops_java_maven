@@ -44,13 +44,15 @@ pipeline{
         //         }
         //     }
         // }
-        // stage("build docker image/push"){
-        //     steps{
-        //         script{
-        //             buildImage "java-maven-app:${VERSION}"                 
-        //         }
-        //     }
-        // }
+        stage("build docker image/push"){
+            steps{
+                script{
+                    login()
+                    buildDockerImage "java-maven-app:${VERSION}"
+                    pushDockerImage "java-maven-app:${VERSION}"
+                }
+            }
+        }
 
         // stage("push to AWS"){
         //     steps{
@@ -60,13 +62,13 @@ pipeline{
         //     }
         // }
 
-        stage("push to Nexus"){
-            steps{
-                script{
-                    pushNexus "java-maven-app:${VERSION}"                 
-                }
-            }
-        }
+        // stage("push to Nexus"){
+        //     steps{
+        //         script{
+        //             pushNexus "java-maven-app:${VERSION}"                 
+        //         }
+        //     }
+        // }
 
         // stage("commit version"){
         //     steps{
