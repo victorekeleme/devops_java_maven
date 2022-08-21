@@ -52,23 +52,21 @@ pipeline{
         //     }
         // }
 
-        stage("push to AWS"){
-            steps{
-                script{
-                    loginAWS()
-                    buildAWSDockerImage "java-maven-app:${VERSION}" 
-                    pushDockerImageAWS "java-maven-app:${VERSION}"                 
-                }
-            }
-        }
-
-        // stage("push to Nexus"){
+        // stage("push to AWS"){
         //     steps{
         //         script{
-        //             pushNexus "java-maven-app:${VERSION}"                 
+        //           pushAWS "java-maven-app:${VERSION}"            
         //         }
         //     }
         // }
+
+        stage("push to Nexus"){
+            steps{
+                script{
+                    pushNexus "java-maven-app:${VERSION}"                 
+                }
+            }
+        }
 
         // stage("commit version"){
         //     steps{
