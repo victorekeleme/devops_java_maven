@@ -8,27 +8,30 @@ pipeline{
     tools {
         maven "Maven"
         }
-    stages{
+
+    stages {
         stage("init"){
             steps{
-                script{
+                script {
                     echo "Initializing"
                     // gv = load "script.groovy"
                 }
             }
         }
-        // stage("version increment"){
-        //     steps{
-        //         script{
-        //             echo "Increasing version"
-        //             sh "mvn build-helper:parse-version versions:set\
-        //             -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
-        //             def regex = readFile('pom.xml') =~ '<version>(.+)</version>'
-        //             def version = regex[0][1]
-        //             env.IMAGE_NAME = "$version"
-        //         }
-        //     }
-        // }        
+
+        stage("version increment"){
+            steps{
+                script {
+                    echo "Increasing version"
+                    sh "mvn build-helper:parse-version versions:set\
+                    -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
+                    
+                    def regex = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = regex[0][1]
+                    env.IMAGE_NAME = "$version"
+                }
+            }
+        }        
         // stage("test"){
         //     steps{
         //         script{
@@ -45,10 +48,10 @@ pipeline{
         //     }
         // }
         stage("build docker image/push"){
-            steps{
-                script{
+            steps {
+                script {
                     // login()
-                    buildDockerImage "java-maven-app:1.1.6"
+                    buildDockerImage "vistein12/java-maven-app:${IMAGE_NAME}"
                     // pushDockerImage "java-maven-app:${VERSION}"
                 }
             }
