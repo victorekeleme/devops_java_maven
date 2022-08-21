@@ -32,21 +32,21 @@ pipeline {
                 }
             }
         }        
-        // stage("test"){
-        //     steps{
-        //         script{
-        //             gv.TestApp()
-        //         }
-        //     }
-        // }
-        // stage("build jar"){
-        //     steps{
-        //         script{
-        //             buildJar()
+        stage("test"){
+            steps{
+                script{
+                    gv.TestApp()
+                }
+            }
+        }
+        stage("build jar"){
+            steps{
+                script{
+                    buildJar()
 
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
         stage("build docker image/push"){
             steps {
                 script {
