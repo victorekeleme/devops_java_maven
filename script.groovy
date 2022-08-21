@@ -1,7 +1,7 @@
-// def TestApp(){
-//     echo "Testing Application"
-//     sh "mvn test"
-// }
+def TestApp(){
+    echo "Testing Application"
+    sh "mvn test"
+}
 
 // def buildJar(){
 //     echo "Building Jar"
@@ -43,4 +43,4 @@
 
 // }
 
-// return this
+return this
