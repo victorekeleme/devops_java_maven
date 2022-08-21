@@ -69,7 +69,7 @@ pipeline{
         stage("commit version"){
             steps{
                 script{
-                    withCredentials([sshUserPrivateKey(credentialsId: 'github-ssh-credentials')]) {
+                    sshagent(credentials: ['github-ssh-credentials']) {
                         sh "git status"
                     }
                                    
