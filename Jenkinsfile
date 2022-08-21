@@ -1,3 +1,5 @@
+@Library('jenkins-shared-library')
+
 def gv
 
 pipeline{
@@ -23,7 +25,7 @@ pipeline{
                     -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
                     def regex = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = regex[0][1]
-                    env.IMAGE_NAME = "$version"
+                    env.VERSION = "$version"
                 }
             }
         }        
@@ -37,7 +39,7 @@ pipeline{
         stage("build jar"){
             steps{
                 script{
-                    gv.buildJar()
+                    buildJar()
 
                 }
             }
@@ -45,7 +47,7 @@ pipeline{
         stage("build docker image/push"){
             steps{
                 script{
-                    gv.buildImage "java-maven-app:${IMAGE_NAME}"                 
+                    buildImage "java-maven-app:${VERSION}"                 
                 }
             }
         }
@@ -53,7 +55,7 @@ pipeline{
         stage("push to AWS"){
             steps{
                 script{
-                    gv.pushAWS "java-maven-app:${IMAGE_NAME}"                 
+                    pushAWS "java-maven-app:${VERSION}"                 
                 }
             }
         }
@@ -61,7 +63,7 @@ pipeline{
         stage("push to Nexus"){
             steps{
                 script{
-                    gv.pushNexus "java-maven-app:${IMAGE_NAME}"                 
+                    pushNexus "java-maven-app:${VERSION}"                 
                 }
             }
         }
