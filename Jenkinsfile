@@ -76,7 +76,7 @@ pipeline{
                         sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
                         sh "git add ."
                         sh 'git commit -m "ci: version bump"'
-                        sh "git push"
+                        sh "git push origin HEAD:jenkins/maven"
                     }
                                    
                 }
