@@ -32,13 +32,13 @@ pipeline {
                 }
             }
         }        
-        stage("test"){
-            steps{
-                script{
-                    gv.TestApp()
-                }
-            }
-        }
+        // stage("test"){
+        //     steps{
+        //         script{
+        //             gv.TestApp()
+        //         }
+        //     }
+        // }
         stage("build jar"){
             steps{
                 script{
