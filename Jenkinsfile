@@ -60,7 +60,7 @@ pipeline {
         stage("push to AWS"){
             steps{
                 script{
-                  pushAWSImage "java-maven-app:${VERSION}"            
+                  pushAWSImage "java-maven-app:${IMAGE_NAME}"            
                 }
             }
         }
@@ -68,7 +68,7 @@ pipeline {
         stage("push to Nexus"){
             steps{
                 script{
-                    nexusPushImage "java-maven-app:${VERSION}"                 
+                    nexusPushImage "java-maven-app:${IMAGE_NAME}"                 
                 }
             }
         }
