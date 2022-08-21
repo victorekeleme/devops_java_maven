@@ -25,7 +25,7 @@ pipeline{
                     -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
                     def regex = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = regex[0][1]
-                    env.VERSION = "$version"
+                    env.IMAGE_NAME = "$version"
                 }
             }
         }        
@@ -48,7 +48,7 @@ pipeline{
             steps{
                 script{
                     // login()
-                    buildDockerImage "java-maven-app:${VERSION}"
+                    buildDockerImage "java-maven-app:${IMAGE_NAME}"
                     // pushDockerImage "java-maven-app:${VERSION}"
                 }
             }
