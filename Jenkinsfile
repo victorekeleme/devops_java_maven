@@ -70,11 +70,13 @@ pipeline{
             steps{
                 script{
                     sshagent(credentials: ['github-ssh-credentials']) {
-                        sh "git config --global user.name 'jenkins'"
-                        sh "git config --global user.email 'jenkins@example.com'"
-                        sh "git config --list"
                         sh "git branch"
                         sh "git status"
+                        
+                        sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
+                        sh "git add ."
+                        sh 'git commit -m "ci: version bump"'
+                        sh "git push"
                     }
                                    
                 }
