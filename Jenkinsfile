@@ -55,7 +55,9 @@ pipeline{
         stage("push to AWS"){
             steps{
                 script{
-                    pushAWS "java-maven-app:${VERSION}"                 
+                    loginAWS()
+                    buildAWSDockerImage "java-maven-app:${VERSION}" 
+                    pushDockerImageAWS "java-maven-app:${VERSION}"                 
                 }
             }
         }
