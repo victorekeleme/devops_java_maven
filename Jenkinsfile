@@ -70,6 +70,10 @@ pipeline{
             steps{
                 script{
                     sshagent(credentials: ['github-ssh-credentials']) {
+                        sh "git config --global user.name 'jenkins'"
+                        sh "git config --global user.email 'jenkins@example.com'"
+                        sh "git config --list"
+                        sh "git branch"
                         sh "git status"
                     }
                                    
