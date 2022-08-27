@@ -28,7 +28,7 @@ pipeline {
                     
                     def regex = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = regex[0][1]
-                    env.IMAGE_NAME = "$version"
+                    env.IMAGE_NAME = "vistein12/react-nodejs-app:${version}"
                 }
             }
         }        
@@ -51,44 +51,58 @@ pipeline {
             steps {
                 script {
                     dockerLogin()
-                    dockerBuildImage "vistein12/java-maven-app:${IMAGE_NAME}"
-                    dockerPushImage "vistein12/java-maven-app:${IMAGE_NAME}"
+                    dockerBuildImage "${IMAGE_NAME}"
+                    dockerPushImage "${IMAGE_NAME}"
                 }
             }
         }
 
-        stage("push to AWS"){
-            steps{
-                script{
-                  pushAWSImage "java-maven-app:${IMAGE_NAME}"            
-                }
-            }
-        }
+        // stage("push to AWS"){
+        //     steps{
+        //         script{
+        //           pushAWSImage "java-maven-app:${IMAGE_NAME}"            
+        //         }
+        //     }
+        // }
 
-        stage("push to Nexus"){
-            steps{
-                script{
-                    nexusPushImage "java-maven-app:${IMAGE_NAME}"                 
-                }
-            }
-        }
+        // stage("push to Nexus"){
+        //     steps{
+        //         script{
+        //             nexusPushImage "java-maven-app:${IMAGE_NAME}"                 
+        //         }
+        //     }
+        // }
 
-        stage("commit version"){
-            steps{
-                script{
-                    sshagent(credentials: ['github-ssh-credentials']) {
-                        sh "git branch"
-                        sh "git status"
-                        
-                        sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
-                        sh "git add ."
-                        sh 'git commit -m "ci: version bump"'
-                        sh "git push origin HEAD:jenkins/maven"
+        stage("deploy to AWS") {
+            steps {
+                script {
+                    def dockerComposeCmd = "bash ./shellScript.sh ${IMAGE_NAME}"
+                    sshagent(['ec2-credentials']) {
+                        sh "scp jma.yaml ec2-user@18.117.146.90:/home/ec2-user"
+                        sh "scp shellScript.sh ec2-user@18.117.146.90:/home/ec2-user"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.117.146.90 ${dockerComposeCmd}"
                     }
-                                   
+
                 }
             }
         }
+
+        // stage("commit version"){
+        //     steps{
+        //         script{
+        //             sshagent(credentials: ['github-ssh-credentials']) {
+        //                 sh "git branch"
+        //                 sh "git status"
+                        
+        //                 sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
+        //                 sh "git add ."
+        //                 sh 'git commit -m "ci: version bump"'
+        //                 sh "git push origin HEAD:jenkins/maven"
+        //             }
+                                   
+        //         }
+        //     }
+        // }
         
     }
 }
