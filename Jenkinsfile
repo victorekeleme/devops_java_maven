@@ -44,17 +44,18 @@ pipeline{
         stage("commit version"){
            steps{
                 script{
-                sshagent(credentials: ['git-ssh']) {
-                    sh "git branch"
-                    sh "git status"
-                    
-                    sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
-                    sh "git add ."
-                    sh 'git commit -m "ci: version bump"'
-                    sh "git push origin HEAD:jenkins/class"
-                    }
+                    sshagent(credentials: ['git-ssh']) {
+                        sh "git branch"
+                        sh "git status"
+                        
+                        sh "git remote set-url origin git@github.com:victorekeleme/devops_java_maven.git"
+                        sh "git add ."
+                        sh 'git commit -m "ci: version bump"'
+                        sh "git push origin HEAD:jenkins/class"
+                        }
                 }
             }
         }
 
+    }
 }
