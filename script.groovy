@@ -8,8 +8,4 @@ def testJar(){
     sh 'mvn test'
 }
 
-def buildJar(){
-    sh 'mvn clean package'
-}
-
 return this
