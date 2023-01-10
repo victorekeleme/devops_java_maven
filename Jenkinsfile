@@ -1,3 +1,5 @@
+def gv
+
 pipeline{
 
     agent any
@@ -6,12 +8,19 @@ pipeline{
     }
 
     stages{
+        stage('init'){
+            steps{
+                script{
+                    echo 'initializing'
+                    gv = load "script.groovy"
+                }
+            }
+        }
+
         stage('version increment'){
             steps{
                 script{
-                    echo 'Increasing version'
-                    sh "mvn build-helper:parse-version versions:set\
-                    -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit"
+                    gv.versionIncrement()
                 }
             }
         }
@@ -19,7 +28,7 @@ pipeline{
         stage('test'){
             steps{
                 script{
-                    sh 'mvn test'
+                    gv.testJar()
                 }
             }
         }
@@ -27,7 +36,7 @@ pipeline{
         stage('build'){
             steps{
                 script{
-                    sh 'mvn clean package'
+                    gv.buildJar()
                 }
             }
         }
